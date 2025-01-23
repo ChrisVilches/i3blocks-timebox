@@ -6,8 +6,6 @@ Timeboxing is a time management technique that involves setting a time limit for
 
 The Pomodoro Technique is a popular variant of timeboxing. It involves working in 25-minute intervals (called "pomodoros") with short breaks in between. After four pomodoros, a longer break is taken.
 
-This i3blocks block provides a visual timer based on the timeboxing principle. It allows you to easily set a time limit for your current task and receive a visual notification when the time is up.
-
 ## Features
 
 1. **Mouse Input Support**: Seamlessly processes mouse interactions, including clicks and scroll wheel movements, to enhance user interactivity.
