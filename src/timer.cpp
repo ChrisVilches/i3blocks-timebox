@@ -1,17 +1,12 @@
+// TODO: Maybe the prints should be delegated to the main. This should just be for logic.
 #include "timer.h"
 
-#include <iostream>
 #include <thread>
 
 #include "utils.h"
 
 Timer::Timer(const std::function<void()> fn)
     : active(false), display_remaining(true), callback(fn) {}
-
-void Timer::print_line(const std::string& s) {
-  std::lock_guard<std::mutex> lock(print_mtx);
-  std::cout << s << std::endl;
-}
 
 void Timer::wait() {
   std::unique_lock<std::mutex> lock(mtx);
@@ -20,13 +15,13 @@ void Timer::wait() {
 
 void Timer::print() {
   if (!active) {
-    print_line("Timebox");
+    utils::print_line("Timebox");
     return;
   }
   if (display_remaining) {
-    print_line(utils::format_seconds(target.seconds_until()));
+    utils::print_line(utils::format_seconds(target.seconds_until()));
   } else {
-    print_line("Timebox...");
+    utils::print_line("Timebox...");
   }
 }
 

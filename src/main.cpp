@@ -1,6 +1,3 @@
-// TODO: This program is nice, maybe I should create a separate repository
-// instead of here. I want to show this project somehow.
-
 #include <unistd.h>
 
 #include <cstdlib>

@@ -19,7 +19,6 @@ class Timer {
   std::function<void()> callback;
   TimeTarget target;
 
-  void print_line(const std::string& s);
   void wait();
   void print();
   void task();
