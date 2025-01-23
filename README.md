@@ -1,6 +1,6 @@
 # Timebox (i3blocks)
 
-Visual Timeboxing Timer for i3blocks.
+Timeboxing Timer for i3blocks.
 
 Timeboxing is a time management technique that involves setting a time limit for working on a task. This helps to improve focus, prevent procrastination, and reduce stress.
 
