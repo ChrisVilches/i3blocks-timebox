@@ -4,16 +4,9 @@
 #include <functional>
 #include <iostream>
 
+#include "mouse_input.h"
 #include "timer.h"
 #include "utils.h"
-
-enum class MouseInput {
-  Left = 1,
-  Middle = 2,
-  Right = 3,
-  WheelUp = 4,
-  WheelDown = 5,
-};
 
 const int step_seconds_small = 60;
 const int step_seconds_big = 60 * 5;
