@@ -2,7 +2,7 @@
 
 Timeboxing Timer for i3blocks.
 
-Timeboxing is a time management technique that involves setting a time limit for working on a task. This helps to improve focus, prevent procrastination, and reduce stress.
+Timeboxing is a time management technique that involves setting a time limit for working on a task. This helps improve focus, prevent procrastination, and reduce stress.
 
 The Pomodoro Technique is a popular variant of timeboxing. It involves working in 25-minute intervals (called "pomodoros") with short breaks in between. After four pomodoros, a longer break is taken.
 
@@ -25,7 +25,7 @@ make
 ./timebox 0 notify-send "Time's up" "Some message here"
 ```
 
-This starts the timer in an off state, and allows the user to increase the time interactively using the mouse in the i3 status bar to enable the timer.
+This starts the timer in an off state and allows the user to increase the time interactively using the mouse in the i3 status bar to enable the timer.
 
 To integrate it with i3blocks, add the following block to your i3blocks configuration file:
 
