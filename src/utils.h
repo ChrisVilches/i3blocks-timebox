@@ -1,11 +1,7 @@
 #pragma once
-#include <mutex>
 #include <string>
 
 namespace utils {
-static std::mutex print_mtx;
-
-std::string format_seconds(int seconds);
+std::string format_seconds(int);
 void redirect_to_dev_null();
-void print_line(const std::string& s);
 }  // namespace utils

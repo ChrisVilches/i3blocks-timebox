@@ -10,6 +10,6 @@ class TimeTarget {
  public:
   int seconds_until();
   bool is_over();
-  void inc(const int s);
+  void inc(const int);
   void set_to_now();
 };

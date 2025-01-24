@@ -7,6 +7,8 @@ int TimeTarget::seconds_until() {
       .count();
 }
 
+// TODO: I'm not sure if the timer runs for X seconds or for X-1 seconds.
+// See? discrete math is the most important math branch for programming.
 bool TimeTarget::is_over() { return seconds_until() <= 0; }
 
 void TimeTarget::inc(const int s) {
