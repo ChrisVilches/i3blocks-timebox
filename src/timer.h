@@ -34,7 +34,6 @@ class Timer {
   Timer(Timer&&) = delete;
   Timer& operator=(Timer&&) = delete;
 
-  void start();
   void inc(const int);
   void toggle_display_remaining();
 };

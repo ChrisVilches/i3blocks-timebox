@@ -9,7 +9,9 @@ Timer::Timer(const std::function<void()> end_cb,
     : active(false),
       display_remaining(true),
       timer_finish_callback(end_cb),
-      message_callback(msg_cb) {}
+      message_callback(msg_cb) {
+  th = std::thread([this]() { task(); });
+}
 
 void Timer::wait() {
   if (active) return;
@@ -44,10 +46,6 @@ void Timer::task() {
       std::this_thread::sleep_for(std::chrono::milliseconds(SLEEP_TIME));
     }
   }
-}
-
-void Timer::start() {
-  th = std::thread([this]() { task(); });
 }
 
 void Timer::inc(const int s) {
