@@ -8,7 +8,7 @@ class TimeTarget {
   std::mutex mtx;
 
  public:
-  int seconds_until();
+  int ms_until();
   bool is_over();
   void inc(const int);
   void set_to_now();

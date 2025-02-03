@@ -26,7 +26,7 @@ void Timer::emit_message() {
     return;
   }
   if (display_remaining) {
-    message_callback(utils::format_seconds(target.seconds_until()));
+    message_callback(utils::format_seconds(target.ms_until() / 1000));
   } else {
     message_callback("Timebox...");
   }
