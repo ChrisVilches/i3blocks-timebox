@@ -46,8 +46,6 @@ int main(const int argc, char* argv[]) {
 
   try {
     const int init_seconds = std::stoi(argv[1]);
-    // TODO: Adding 4 seconds adds only 3. There's a problem with discrete math happening
-    // somewhere in the timer logic (not necessarily here).
 
     if (init_seconds > 0) {
       timer.inc(init_seconds);
