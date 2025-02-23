@@ -32,8 +32,24 @@ void Timer::emit_message() {
   }
 }
 
+// TODO: UPDATE: I think this setup works correctly for all these situations.
+// TODO: Verify using ChatGPT that my solution is sound and it's properly made.
+// TODO: It's a bit complicated to quit this loop (which is waiting for signals).
+// STDIN can be closed right away
+// STDIN can be closed while a timer is on-going
+// It can be executed with `echo 3 | program`
+// It can be executed as terminal app, start a timer, and then close STDIN (ctrl+d)
+// so there are several cases, and several places to put the stop_flag condition here.
+void Timer::join() {
+  stop_flag = true;
+  cv.notify_one();
+  if (th.joinable()) {
+    th.join();
+  }
+}
+
 void Timer::task() {
-  while (true) {
+  while (!stop_flag) {
     emit_message();
     wait();
     while (active) {

@@ -65,4 +65,13 @@ int main(const int argc, char* argv[]) {
         break;
     }
   }
+
+  // NOTE: When used as an i3 block, this program typically runs indefinitely.
+  // However, you can simulate its termination by pressing CTRL+D in a terminal.
+
+  std::cerr << "📌 Input stream closed. Cleaning up resources... ⏳" << std::endl;
+
+  timer.join();
+
+  std::cerr << "🔹 Timer thread finished. Exiting. ✅" << std::endl;
 }
