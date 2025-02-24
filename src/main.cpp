@@ -30,18 +30,20 @@ void execute_notification(const int argc, char* argv[]) {
 
   // Having the program output here will ruin the output of the i3 block!
   // So it must be silenced.
-  utils::redirect_to_dev_null();
+  utils::redirect_to_file("/tmp/timebox-i3.log");
 
   if (execvp(argv[1], argv + 1) == -1) {
-    // TODO: Change error message for a human-friendly one, although I never read it
-    // really (because it never happens).
     perror("execvp failed");
+
+    // NOTE: Prevents the child from staying alive and logging the default string (used as
+    // i3 block UI) if exec fails.
+    exit(1);
   }
 }
 
-int main(const int argc, char* argv[]) {
-  // TODO: The only thing I don't know is how to join the thread at the end safely.
-  // add a destructor to join or detach the thread, or something similar.
+// TODO: Sometimes this doesn't get the "echo 3" I use, and ends immediately. This is a
+// bug.
+void process(const int argc, char* argv[]) {
   Timer timer([argc, argv]() { execute_notification(argc, argv); }, print_line);
 
   int click;
@@ -70,8 +72,9 @@ int main(const int argc, char* argv[]) {
   // However, you can simulate its termination by pressing CTRL+D in a terminal.
 
   std::cerr << "📌 Input stream closed. Cleaning up resources... ⏳" << std::endl;
+}
 
-  timer.join();
-
+int main(const int argc, char* argv[]) {
+  process(argc, argv);
   std::cerr << "🔹 Timer thread finished. Exiting. ✅" << std::endl;
 }

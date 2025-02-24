@@ -40,7 +40,7 @@ void Timer::emit_message() {
 // It can be executed with `echo 3 | program`
 // It can be executed as terminal app, start a timer, and then close STDIN (ctrl+d)
 // so there are several cases, and several places to put the stop_flag condition here.
-void Timer::join() {
+Timer::~Timer() {
   stop_flag = true;
   cv.notify_one();
   if (th.joinable()) {

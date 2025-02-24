@@ -18,10 +18,15 @@ std::string format_seconds(int seconds) {
   return ss.str();
 }
 
-void redirect_to_dev_null() {
-  const int fd = open("/dev/null", O_WRONLY);
-  dup2(fd, 1);
-  dup2(fd, 2);
+void redirect_to_file(const std::string& file) {
+  const int fd = open(file.c_str(), O_WRONLY | O_CREAT | O_APPEND, 0666);
+  if (fd == -1) {
+    perror("Failed to open file");
+    return;
+  }
+
+  dup2(fd, STDOUT_FILENO);
+  dup2(fd, STDERR_FILENO);
   close(fd);
 }
 }  // namespace utils

@@ -30,6 +30,7 @@ class Timer {
 
  public:
   Timer(const std::function<void()>, const std::function<void(const std::string&)>);
+  ~Timer();
   Timer(const Timer&) = delete;
   Timer& operator=(const Timer&) = delete;
   Timer(Timer&&) = delete;
@@ -37,5 +38,4 @@ class Timer {
 
   void inc(const int);
   void toggle_display_remaining();
-  void join();
 };
