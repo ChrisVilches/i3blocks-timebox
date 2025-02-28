@@ -1,7 +1,5 @@
 #include <unistd.h>
 
-#include <cstdlib>
-#include <functional>
 #include <iostream>
 
 #include "mouse_input.h"
@@ -14,7 +12,7 @@ const int step_seconds_big = 60 * 5;
 static std::mutex print_mtx;
 
 void print_message(const std::optional<TimerMessage> msg) {
-  // TODO: Print it with colors and a clock icon.
+  // TODO: Print it with colors (maybe?).
   std::lock_guard<std::mutex> lock(print_mtx);
 
   if (!msg.has_value()) {
