@@ -13,11 +13,20 @@ const int step_seconds_big = 60 * 5;
 
 static std::mutex print_mtx;
 
-void print_line(const std::string& s) {
-  // TODO: Get the message as an object (not string) and
-  // also print it with colors and a clock icon.
+void print_message(const std::optional<TimerMessage> msg) {
+  // TODO: Print it with colors and a clock icon.
   std::lock_guard<std::mutex> lock(print_mtx);
-  std::cout << s << std::endl;
+
+  if (!msg.has_value()) {
+    std::cout << "Timebox" << std::endl;
+    return;
+  }
+
+  if (msg->visible) {
+    std::cout << "🕔 " << utils::format_seconds(msg->ms / 1000) << std::endl;
+  } else {
+    std::cout << "🕔 Timebox..." << std::endl;
+  }
 }
 
 // TODO: Weird: it's creating a new timer even though the one I had ended.
@@ -44,7 +53,7 @@ void execute_notification(const int argc, char* argv[]) {
 // TODO: Sometimes this doesn't get the "echo 3" I use, and ends immediately. This is a
 // bug.
 void process(const int argc, char* argv[]) {
-  Timer timer([argc, argv]() { execute_notification(argc, argv); }, print_line);
+  Timer timer([argc, argv]() { execute_notification(argc, argv); }, print_message);
 
   int click;
 

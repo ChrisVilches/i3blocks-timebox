@@ -1,11 +1,10 @@
 #include "timer.h"
 
+#include <optional>
 #include <thread>
 
-#include "utils.h"
-
 Timer::Timer(const std::function<void()> end_cb,
-             const std::function<void(const std::string&)> msg_cb)
+             const std::function<void(const std::optional<TimerMessage>)> msg_cb)
     : active(false),
       display_remaining(true),
       timer_finish_callback(end_cb),
@@ -21,14 +20,10 @@ void Timer::wait() {
 }
 
 void Timer::emit_message() {
-  if (!active) {
-    message_callback("Timebox");
-    return;
-  }
-  if (display_remaining) {
-    message_callback(utils::format_seconds(target.ms_until() / 1000));
+  if (active) {
+    message_callback(TimerMessage{target.ms_until(), display_remaining});
   } else {
-    message_callback("Timebox...");
+    message_callback(std::nullopt);
   }
 }
 

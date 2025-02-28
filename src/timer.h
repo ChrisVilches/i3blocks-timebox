@@ -3,10 +3,17 @@
 #include <condition_variable>
 #include <functional>
 #include <mutex>
+#include <optional>
 #include <string>
 #include <thread>
+#include <variant>
 
 #include "time_target.h"
+
+struct TimerMessage {
+  int ms;
+  bool visible;
+};
 
 class Timer {
  private:
@@ -21,7 +28,7 @@ class Timer {
   std::atomic<bool> display_remaining;
   std::thread th;
   std::function<void()> timer_finish_callback;
-  std::function<void(const std::string&)> message_callback;
+  std::function<void(const std::optional<TimerMessage>)> message_callback;
   TimeTarget target;
 
   void wait();
@@ -29,7 +36,8 @@ class Timer {
   void task();
 
  public:
-  Timer(const std::function<void()>, const std::function<void(const std::string&)>);
+  Timer(const std::function<void()>,
+        const std::function<void(const std::optional<TimerMessage>)>);
   ~Timer();
   Timer(const Timer&) = delete;
   Timer& operator=(const Timer&) = delete;
