@@ -1,6 +1,6 @@
 #include "time_target.h"
 
-int TimeTarget::ms_until() {
+long long TimeTarget::ms_until() {
   std::lock_guard<std::mutex> lock(mtx);
   const auto diff = target - std::chrono::system_clock::now();
   return std::chrono::duration_cast<std::chrono::milliseconds>(diff).count();

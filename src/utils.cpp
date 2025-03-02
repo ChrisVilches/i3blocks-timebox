@@ -6,9 +6,9 @@
 #include <iomanip>
 
 namespace utils {
-std::string format_seconds(int seconds) {
-  const int minutes = seconds / 60;
-  const int secs = seconds % 60;
+std::string format_seconds(const long long seconds) {
+  const long long minutes = seconds / 60;
+  const long long secs = seconds % 60;
 
   std::stringstream ss;
   ss << std::setw(2) << std::setfill('0') << minutes << ":";

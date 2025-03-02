@@ -9,7 +9,7 @@
 #include "time_target.h"
 
 struct TimerMessage {
-  int ms;
+  long long ms;
   bool visible;
 };
 
