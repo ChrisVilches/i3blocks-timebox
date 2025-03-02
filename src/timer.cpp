@@ -5,18 +5,13 @@
 
 Timer::Timer(const std::function<void()> end_cb,
              const std::function<void(const std::optional<TimerMessage>)> msg_cb)
-    : active(false),
-      display_remaining(true),
-      timer_finish_callback(end_cb),
-      message_callback(msg_cb) {
+    : timer_finish_callback(end_cb), message_callback(msg_cb) {
   th = std::thread([this]() { task(); });
 }
 
 void Timer::wait() {
-  if (active) return;
-
   std::unique_lock<std::mutex> lock(mtx);
-  cv.wait(lock);
+  cv.wait(lock, [this]() { return instructions_stream_closed || active; });
 }
 
 void Timer::emit_message() {
@@ -27,26 +22,20 @@ void Timer::emit_message() {
   }
 }
 
-// TODO: UPDATE: I think this setup works correctly for all these situations.
-// TODO: Verify using ChatGPT that my solution is sound and it's properly made.
-// TODO: It's a bit complicated to quit this loop (which is waiting for signals).
-// STDIN can be closed right away
-// STDIN can be closed while a timer is on-going
-// It can be executed with `echo 3 | program`
-// It can be executed as terminal app, start a timer, and then close STDIN (ctrl+d)
-// so there are several cases, and several places to put the stop_flag condition here.
 Timer::~Timer() {
-  stop_flag = true;
+  instructions_stream_closed = true;
   cv.notify_one();
+
   if (th.joinable()) {
     th.join();
   }
 }
 
 void Timer::task() {
-  while (!stop_flag) {
+  do {
     emit_message();
     wait();
+
     while (active) {
       if (target.is_over()) {
         active = false;
@@ -56,7 +45,8 @@ void Timer::task() {
       emit_message();
       std::this_thread::sleep_for(std::chrono::milliseconds(SLEEP_TIME));
     }
-  }
+
+  } while (!instructions_stream_closed);
 }
 
 void Timer::inc(const int s) {
@@ -67,8 +57,8 @@ void Timer::inc(const int s) {
   if (target.is_over()) {
     active = false;
   } else {
-    cv.notify_one();
     active = true;
+    cv.notify_one();
   }
   emit_message();
 }

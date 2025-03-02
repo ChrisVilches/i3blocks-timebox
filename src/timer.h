@@ -18,12 +18,12 @@ class Timer {
   static inline constexpr int SLEEP_TIME = 200;
   std::condition_variable cv;
   std::mutex mtx;
-  std::atomic<bool> stop_flag{false};
   // The usage of "active" is necessary to make a difference between
   // a timer stopped by the user and one that finished naturally.
   // Only the case without human interaction triggers the callback.
-  std::atomic<bool> active;
-  std::atomic<bool> display_remaining;
+  std::atomic<bool> active{false};
+  std::atomic<bool> display_remaining{true};
+  std::atomic<bool> instructions_stream_closed{false};
   std::thread th;
   std::function<void()> timer_finish_callback;
   std::function<void(const std::optional<TimerMessage>)> message_callback;
