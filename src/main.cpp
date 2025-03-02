@@ -12,7 +12,6 @@ const int step_seconds_big = 60 * 5;
 static std::mutex print_mtx;
 
 void print_message(const std::optional<TimerMessage> msg) {
-  // TODO: Print it with colors (maybe?).
   std::lock_guard<std::mutex> lock(print_mtx);
 
   if (!msg.has_value()) {
@@ -44,8 +43,6 @@ void execute_notification(const int argc, char* argv[]) {
   }
 }
 
-// TODO: Sometimes this doesn't get the "echo 3" I use, and ends immediately. This is a
-// bug.
 void process(const int argc, char* argv[]) {
   Timer timer([argc, argv]() { execute_notification(argc, argv); }, print_message);
 
