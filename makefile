@@ -1,5 +1,6 @@
 CXX = g++
-CXXFLAGS = -std=c++17 -Wall -Isrc -pthread
+# CXXFLAGS = -std=c++20 -Wall -Isrc -pthread
+CXXFLAGS = -std=c++20 -Wall -Wextra -Wpedantic -Werror -Wshadow -Wconversion -Wsign-conversion -Wnull-dereference -Wold-style-cast -Woverloaded-virtual -Wdouble-promotion -Wformat=2 -Isrc -pthread
 
 # Directories
 SRC_DIR = src
