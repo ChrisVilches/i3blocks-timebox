@@ -23,7 +23,7 @@ class Timer {
   // Only the case without human interaction triggers the callback.
   std::atomic<bool> active{false};
   std::atomic<bool> display_remaining{true};
-  std::atomic<bool> instructions_stream_closed{false};
+  std::atomic<bool> finished{false};
   std::thread th;
   std::function<void()> timer_finish_callback;
   std::function<void(const std::optional<TimerMessage>)> message_callback;

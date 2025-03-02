@@ -11,7 +11,7 @@ Timer::Timer(const std::function<void()> end_cb,
 
 void Timer::wait() {
   std::unique_lock<std::mutex> lock(mtx);
-  cv.wait(lock, [this]() { return instructions_stream_closed || active; });
+  cv.wait(lock, [this]() { return finished || active; });
 }
 
 void Timer::emit_message() {
@@ -23,7 +23,7 @@ void Timer::emit_message() {
 }
 
 Timer::~Timer() {
-  instructions_stream_closed = true;
+  finished = true;
   cv.notify_one();
 
   if (th.joinable()) {
@@ -46,7 +46,7 @@ void Timer::task() {
       std::this_thread::sleep_for(std::chrono::milliseconds(SLEEP_TIME));
     }
 
-  } while (!instructions_stream_closed);
+  } while (!finished);
 }
 
 void Timer::inc(const int s) {
