@@ -27,10 +27,6 @@ void print_message(const std::optional<TimerMessage> msg) {
   }
 }
 
-// TODO: Weird: it's creating a new timer even though the one I had ended.
-// I don't know if this problem is caused by i3 or by this C++ program.
-// hard to debug lol.
-
 void execute_notification(const int argc, char* argv[]) {
   if (argc < 2) return;
   if (fork() != 0) return;
@@ -57,19 +53,19 @@ void process(const int argc, char* argv[]) {
 
   while (std::cin >> click) {
     switch (click) {
-      case (int)MouseInput::Left:
+      case static_cast<int>(MouseInput::Left):
         timer.inc(-step_seconds_small);
         break;
-      case (int)MouseInput::Right:
+      case static_cast<int>(MouseInput::Right):
         timer.inc(step_seconds_small);
         break;
-      case (int)MouseInput::WheelUp:
+      case static_cast<int>(MouseInput::WheelUp):
         timer.inc(step_seconds_big);
         break;
-      case (int)MouseInput::WheelDown:
+      case static_cast<int>(MouseInput::WheelDown):
         timer.inc(-step_seconds_big);
         break;
-      case (int)MouseInput::Middle:
+      case static_cast<int>(MouseInput::Middle):
         timer.toggle_display_remaining();
         break;
     }
@@ -78,6 +74,7 @@ void process(const int argc, char* argv[]) {
   // NOTE: When used as an i3 block, this program typically runs indefinitely.
   // However, you can simulate its termination by pressing CTRL+D in a terminal.
 
+  std::lock_guard<std::mutex> lock(print_mtx);
   std::cerr << "📌 Input stream closed. Cleaning up resources... ⏳" << std::endl;
 }
 
