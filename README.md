@@ -35,7 +35,7 @@ This will generate the `timebox` executable.
 To start the timer manually and display a notification when time is up:
 
 ```sh
-./timebox notify-send Time's up Some message here
+./timebox notify-send "Time's up Some message here"
 ```
 
 This starts the timer in an inactive state. You can increase the time interactively using the mouse in the i3 status bar.
@@ -45,7 +45,7 @@ To integrate Timebox with i3blocks, add the following to your i3blocks configura
 
 ```
 [timebox]
-command=/path/to/timebox notify-send Time's up Some message here
+command=/path/to/timebox notify-send "Time's up Some message here"
 interval=persist
 ```
 
@@ -55,7 +55,7 @@ Make sure to replace `/path/to/timebox` with the actual path to the compiled `ti
 You can use `i3-nagbar` instead of `notify-send`:
 
 ```sh
-./timebox i3-nagbar -m Time's up
+./timebox i3-nagbar -m "Time's up"
 ```
 
 ### Custom Scripts
@@ -68,9 +68,7 @@ You can execute a custom script when the timer ends. For example, if you want to
 Ensure your script handles necessary actions, such as triggering notifications and playing sounds.
 
 ## Notes
-- The `timebox` command removes the first argument and passes the remaining arguments to `exec`. Ensure commands are provided correctly without unnecessary quotes.
 - The timer starts in an inactive state and must be adjusted using mouse interactions in the i3 status bar.
-
-For any issues or feature requests, please open an issue in the repository.
+- For any issues or feature requests, please open an issue in the repository.
 
 
