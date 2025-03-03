@@ -33,7 +33,7 @@ To start the timer manually and display a notification when time is up:
 ./timebox notify-send "Time's up" "Some message here"
 ```
 
-This starts the timer in an inactive state. You can increase the time interactively using the mouse in the i3 status bar.
+This starts the timer in an inactive state. You can increase the time interactively using the mouse in the i3 status bar. On a terminal, you can use numbers from 1 to 5 to simulate mouse buttons, which are read via stdin.
 
 ### i3blocks Integration
 
