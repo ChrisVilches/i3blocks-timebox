@@ -1,10 +1,6 @@
 #pragma once
-#include <atomic>
 #include <condition_variable>
 #include <functional>
-#include <mutex>
-#include <optional>
-#include <thread>
 
 #include "time_target.h"
 

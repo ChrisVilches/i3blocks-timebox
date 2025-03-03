@@ -1,8 +1,5 @@
 #include "timer.h"
 
-#include <optional>
-#include <thread>
-
 Timer::Timer(const std::function<void()> end_cb,
              const std::function<void(const std::optional<TimerMessage>)> msg_cb)
     : timer_finish_callback(end_cb), message_callback(msg_cb) {
