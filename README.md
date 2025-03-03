@@ -30,7 +30,7 @@ This will generate the `timebox` executable.
 To start the timer manually and display a notification when time is up:
 
 ```sh
-./timebox notify-send "Time's up Some message here"
+./timebox notify-send "Time's up" "Some message here"
 ```
 
 This starts the timer in an inactive state. You can increase the time interactively using the mouse in the i3 status bar.
@@ -41,7 +41,7 @@ To integrate Timebox with i3blocks, add the following to your i3blocks configura
 
 ```
 [timebox]
-command=/path/to/timebox notify-send "Time's up Some message here"
+command=/path/to/timebox notify-send "Time's up" "Some message here"
 interval=persist
 ```
 
