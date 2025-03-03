@@ -22,7 +22,7 @@ make
 ### Basic Usage
 
 ```sh
-./timebox 0 notify-send "Time's up" "Some message here"
+./timebox notify-send "Time's up" "Some message here"
 ```
 
 This starts the timer in an off state and allows the user to increase the time interactively using the mouse in the i3 status bar to enable the timer.
@@ -31,37 +31,23 @@ To integrate it with i3blocks, add the following block to your i3blocks configur
 
 ```
 [timebox]
-command=/path/to/timebox 0 notify-send "Time's up" "Some message here"
+command=/path/to/timebox notify-send "Time's up" "Some message here"
 interval=persist
 ```
 
 You can use any command that triggers a notification (e.g. `notify-send` if it's installed).
 
-### Basic Timer with `i3-nagbar` Notification
+### Other Usages
+
+Using `i3-nagbar`:
 
 ```sh
-./timebox 300 i3-nagbar -m "Time's up"
+./timebox i3-nagbar -m "Time's up"
 ```
 
-This runs a 300-second (5-minute) timer and shows a message using `i3-nagbar` when the time is up.
-
-### Basic Timer with `notify-send` Notification
+You can use the custom `script.sh` to perform complex actions like sending a desktop notification with `notify-send` and playing a ringtone simultaneously:
 
 ```sh
-./timebox 600 notify-send "Timer Finished" "Your 10-minute timer is up"
+./timebox /path/to/your/script.sh
 ```
-
-This runs a 600-second (10-minute) timer and shows a notification using `notify-send` when the timer ends.
-
-### Custom Timer to Launch a Script
-
-If you have a custom script to handle notifications, you can call it directly:
-
-```sh
-./timebox 1200 /path/to/your/script.sh
-```
-
-This runs a 1200-second (20-minute) timer and executes your custom script when the time is up.
-
-You can use the custom `script.sh` to perform complex actions like sending a desktop notification with `notify-send` and playing a ringtone simultaneously.
 
