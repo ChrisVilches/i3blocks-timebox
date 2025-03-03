@@ -29,6 +29,7 @@ class Timer {
   std::function<void(const std::optional<TimerMessage>)> message_callback;
   TimeTarget target;
 
+  bool tick();
   void wait();
   void emit_message();
   void task();
@@ -43,5 +44,5 @@ class Timer {
   Timer& operator=(Timer&&) = delete;
 
   void inc(const int);
-  void toggle_display_remaining();
+  void toggle_display_remaining() noexcept;
 };

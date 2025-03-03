@@ -5,7 +5,6 @@
 class TimeTarget {
  private:
   std::chrono::time_point<std::chrono::system_clock> target;
-  std::mutex mtx;
 
  public:
   long long ms_until();
