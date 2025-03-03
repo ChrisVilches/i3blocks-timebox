@@ -1,6 +1,6 @@
 # Timebox (i3blocks)
 
-Timeboxing Timer for i3blocks.
+A Timeboxing Timer for i3blocks.
 
 Timeboxing is a time management technique that involves setting a time limit for working on a task. This helps improve focus, prevent procrastination, and reduce stress.
 
@@ -8,46 +8,69 @@ The Pomodoro Technique is a popular variant of timeboxing. It involves working i
 
 ## Features
 
-1. **Mouse Input Support**: Seamlessly processes mouse interactions, including clicks and scroll wheel movements, to enhance user interactivity.
-2. **Notification Integration**: Fully compatible with any notification system installed on your machine, ensuring smooth and consistent communication.
+- **Mouse Interaction Support**: Adjust the timer interactively using mouse clicks and scroll wheel movements in the i3 status bar.
+- **Notification Integration**: Compatible with any notification system installed on your machine, such as `notify-send`.
 
-## Compilation
+## Installation
+
+### Compilation
+Ensure you have `g++` and `make` installed. The program is compiled with the following flags:
+
+```sh
+CXX = g++
+CXXFLAGS = -std=c++20 -Wall -Wextra -Wpedantic -Werror -Wshadow -Wconversion -Wsign-conversion -Wnull-dereference -Wold-style-cast -Woverloaded-virtual -Wdouble-promotion -Wformat=2 -Isrc -pthread
+```
+
+To compile, run:
 
 ```sh
 make
 ```
 
-## Execution and Installation
+This will generate the `timebox` executable.
 
-### Basic Usage
+## Usage
+
+### Running the Timer
+To start the timer manually and display a notification when time is up:
 
 ```sh
-./timebox notify-send "Time's up" "Some message here"
+./timebox notify-send Time's up Some message here
 ```
 
-This starts the timer in an off state and allows the user to increase the time interactively using the mouse in the i3 status bar to enable the timer.
+This starts the timer in an inactive state. You can increase the time interactively using the mouse in the i3 status bar.
 
-To integrate it with i3blocks, add the following block to your i3blocks configuration file:
+### i3blocks Integration
+To integrate Timebox with i3blocks, add the following to your i3blocks configuration file:
 
 ```
 [timebox]
-command=/path/to/timebox notify-send "Time's up" "Some message here"
+command=/path/to/timebox notify-send Time's up Some message here
 interval=persist
 ```
 
-You can use any command that triggers a notification (e.g. `notify-send` if it's installed).
+Make sure to replace `/path/to/timebox` with the actual path to the compiled `timebox` binary.
 
-### Other Usages
-
-Using `i3-nagbar`:
+### Alternative Notifications
+You can use `i3-nagbar` instead of `notify-send`:
 
 ```sh
-./timebox i3-nagbar -m "Time's up"
+./timebox i3-nagbar -m Time's up
 ```
 
-You can use the custom `script.sh` to perform complex actions like sending a desktop notification with `notify-send` and playing a ringtone simultaneously:
+### Custom Scripts
+You can execute a custom script when the timer ends. For example, if you want to send a notification and play a sound:
 
 ```sh
 ./timebox /path/to/your/script.sh
 ```
+
+Ensure your script handles necessary actions, such as triggering notifications and playing sounds.
+
+## Notes
+- The `timebox` command removes the first argument and passes the remaining arguments to `exec`. Ensure commands are provided correctly without unnecessary quotes.
+- The timer starts in an inactive state and must be adjusted using mouse interactions in the i3 status bar.
+
+For any issues or feature requests, please open an issue in the repository.
+
 
