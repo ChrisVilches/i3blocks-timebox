@@ -35,8 +35,8 @@ void execute_notification(const int argc, char* argv[]) {
   if (execvp(argv[1], argv + 1) == -1) {
     perror("execvp failed");
 
-    // NOTE: Prevents the child from staying alive and logging the default string (used as
-    // i3 block UI) if exec fails.
+    // NOTE: The following exit call prevents the child process from staying alive and
+    // logging the default string (used as i3 block UI) if exec fails.
     exit(1);
   }
 }
