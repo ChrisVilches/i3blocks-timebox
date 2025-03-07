@@ -14,5 +14,6 @@ CompileFlags:
     -Wdouble-promotion,
     -Wformat=2,
     -Isrc,
-    -pthread
+    -pthread,
+    -fsanitize=address,undefined
   ]
