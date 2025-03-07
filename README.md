@@ -65,8 +65,7 @@ You can execute a custom script when the timer ends. For example, if you want to
 
 Ensure your script handles necessary actions, such as triggering notifications and playing sounds.
 
-## Notes
+## Support
 
-- The timer starts in an inactive state and must be adjusted using mouse interactions in the i3 status bar.
-- For any issues or feature requests, please open an issue in the repository.
+For any issues or feature requests, please open an issue in the repository.
 
