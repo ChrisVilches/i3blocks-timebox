@@ -1,4 +1,8 @@
+#include <unistd.h>
+
 #include <iostream>
+#include <mutex>
+#include <optional>
 
 #include "mouse_input.h"
 #include "timer.h"

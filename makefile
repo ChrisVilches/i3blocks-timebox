@@ -4,25 +4,57 @@ CXXFLAGS = -std=c++20 -Wall -Wextra -Wpedantic -Werror -Wshadow -Wconversion -Ws
 # Directories
 SRC_DIR = src
 BUILD_DIR = build
+I3_DIR = frontends/i3
+CLI_DIR = frontends/cli
 
 # Create build directory if it doesn't exist
-$(shell mkdir -p $(BUILD_DIR))
+$(shell mkdir -p $(BUILD_DIR) $(BUILD_DIR)/i3 $(BUILD_DIR)/cli)
 
-# Target
-TARGET = $(BUILD_DIR)/timebox
+# Core source files (excluding main.cpp)
+CORE_SRCS = $(filter-out $(SRC_DIR)/main.cpp, $(wildcard $(SRC_DIR)/*.cpp))
+CORE_OBJS = $(CORE_SRCS:$(SRC_DIR)/%.cpp=$(BUILD_DIR)/%.o)
 
-# Source files
-SRCS = $(wildcard $(SRC_DIR)/*.cpp)
-OBJS = $(SRCS:$(SRC_DIR)/%.cpp=$(BUILD_DIR)/%.o)
+# Frontend source files
+I3_SRCS = $(I3_DIR)/main_i3.cpp
+I3_OBJS = $(I3_SRCS:$(I3_DIR)/%.cpp=$(BUILD_DIR)/i3/%.o)
 
-# Build target
-$(TARGET): $(OBJS)
-	$(CXX) $(CXXFLAGS) $(OBJS) -o $@
+CLI_SRCS = $(CLI_DIR)/main_cli.cpp
+CLI_OBJS = $(CLI_SRCS:$(CLI_DIR)/%.cpp=$(BUILD_DIR)/cli/%.o)
 
-# Compile source files
+# Targets
+I3_TARGET = $(BUILD_DIR)/timebox-i3
+CLI_TARGET = $(BUILD_DIR)/timebox-cli
+
+# Default target (i3)
+i3: $(I3_TARGET)
+
+# Additional targets
+all: $(I3_TARGET) $(CLI_TARGET)
+cli: $(CLI_TARGET)
+
+# i3 target
+$(I3_TARGET): $(CORE_OBJS) $(I3_OBJS)
+	$(CXX) $(CXXFLAGS) $(CORE_OBJS) $(I3_OBJS) -o $@
+
+# cli target (placeholder)
+$(CLI_TARGET): $(CORE_OBJS) $(CLI_OBJS)
+	$(CXX) $(CXXFLAGS) $(CORE_OBJS) $(CLI_OBJS) -o $@
+
+# Compile core source files
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+# Compile i3 frontend source files
+$(BUILD_DIR)/i3/%.o: $(I3_DIR)/%.cpp
+	$(CXX) $(CXXFLAGS) -I$(I3_DIR) -c $< -o $@
+
+# Compile cli frontend source files
+$(BUILD_DIR)/cli/%.o: $(CLI_DIR)/%.cpp
+	$(CXX) $(CXXFLAGS) -I$(CLI_DIR) -c $< -o $@
 
 # Clean build artifacts
 clean:
 	rm -rf $(BUILD_DIR)
+
+# Phony targets
+.PHONY: all i3 cli clean
