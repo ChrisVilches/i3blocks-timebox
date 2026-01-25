@@ -3,19 +3,20 @@ CXXFLAGS = -std=c++20 -Wall -Wextra -Wpedantic -Werror -Wshadow -Wconversion -Ws
 
 # Directories
 SRC_DIR = src
+TIMER_DIR = src/timer
 BUILD_DIR = build
-I3_DIR = frontends/i3
-CLI_DIR = frontends/cli
+I3_DIR = src/frontends/i3
+CLI_DIR = src/frontends/cli
 
 # Create build directory if it doesn't exist
-$(shell mkdir -p $(BUILD_DIR) $(BUILD_DIR)/i3 $(BUILD_DIR)/cli)
+$(shell mkdir -p $(BUILD_DIR) $(BUILD_DIR)/i3 $(BUILD_DIR)/cli $(BUILD_DIR)/timer)
 
-# Core source files (excluding main.cpp)
-CORE_SRCS = $(filter-out $(SRC_DIR)/main.cpp, $(wildcard $(SRC_DIR)/*.cpp))
-CORE_OBJS = $(CORE_SRCS:$(SRC_DIR)/%.cpp=$(BUILD_DIR)/%.o)
+# Core source files (timer logic)
+CORE_SRCS = $(wildcard $(TIMER_DIR)/*.cpp)
+CORE_OBJS = $(CORE_SRCS:$(TIMER_DIR)/%.cpp=$(BUILD_DIR)/timer/%.o)
 
 # Frontend source files
-I3_SRCS = $(I3_DIR)/main_i3.cpp
+I3_SRCS = $(I3_DIR)/main_i3.cpp $(I3_DIR)/utils.cpp
 I3_OBJS = $(I3_SRCS:$(I3_DIR)/%.cpp=$(BUILD_DIR)/i3/%.o)
 
 CLI_SRCS = $(CLI_DIR)/main_cli.cpp

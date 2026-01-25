@@ -5,7 +5,7 @@
 #include <optional>
 
 #include "mouse_input.h"
-#include "timer.h"
+#include "timer/timer.h"
 #include "utils.h"
 
 const int step_seconds_small = 60;

@@ -8,7 +8,7 @@ The Pomodoro Technique is a popular variant of timeboxing. It involves working i
 
 ## Architecture
 
-The project is split into core timer logic (`src/`) and frontend implementations (`frontends/`). Currently available frontends:
+The project is split into core timer logic (`src/timer/`) and frontend implementations (`src/frontends/`). Currently available frontends:
 
 - **i3 frontend**: For integration with i3 status bar (i3blocks)
 - **CLI frontend**: Placeholder for future terminal interface

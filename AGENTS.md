@@ -25,7 +25,7 @@
 - **Move/copy**: Delete copy/move operations for classes managing resources (e.g., `Timer`)
 
 ## Project Structure
-- Core logic source files in `src/` with `.cpp`/`.h` pairs
-- Frontend-specific code in `frontends/` (i3, cli)
+- Core timer logic source files in `src/timer/` with `.cpp`/`.h` pairs
+- Frontend-specific code in `src/frontends/` (i3, cli)
 - Build output in `build/` (created automatically)
 - i3blocks integration tool for timeboxing/pomodoro timer
