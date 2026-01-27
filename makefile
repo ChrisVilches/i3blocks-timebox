@@ -26,18 +26,18 @@ CLI_OBJS = $(CLI_SRCS:$(CLI_DIR)/%.cpp=$(BUILD_DIR)/cli/%.o)
 I3_TARGET = $(BUILD_DIR)/timebox-i3
 CLI_TARGET = $(BUILD_DIR)/timebox-cli
 
-# Default target (i3)
-i3: $(I3_TARGET)
-
-# Additional targets
+# Default target (build both frontends)
 all: $(I3_TARGET) $(CLI_TARGET)
+
+# Individual frontend targets
+i3: $(I3_TARGET)
 cli: $(CLI_TARGET)
 
 # i3 target
 $(I3_TARGET): $(CORE_OBJS) $(I3_OBJS)
 	$(CXX) $(CXXFLAGS) $(CORE_OBJS) $(I3_OBJS) -o $@
 
-# cli target (placeholder)
+# cli target (interactive terminal)
 $(CLI_TARGET): $(CORE_OBJS) $(CLI_OBJS)
 	$(CXX) $(CXXFLAGS) $(CORE_OBJS) $(CLI_OBJS) -o $@
 

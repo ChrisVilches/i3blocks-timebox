@@ -11,11 +11,12 @@ The Pomodoro Technique is a popular variant of timeboxing. It involves working i
 The project is split into core timer logic (`src/timer/`) and frontend implementations (`src/frontends/`). Currently available frontends:
 
 - **i3 frontend**: For integration with i3 status bar (i3blocks)
-- **CLI frontend**: Placeholder for future terminal interface
+ - **CLI frontend**: Interactive terminal interface with keyboard controls
 
 ## Features
 
 - **Mouse Interaction Support**: Adjust the timer interactively using mouse clicks and scroll wheel movements in the i3 status bar.
+- **Keyboard Interaction Support**: Adjust the timer interactively using keyboard shortcuts in the CLI frontend.
 - **Notification Integration**: Compatible with any notification system installed on your machine, such as `notify-send`.
 
 ## Installation
@@ -25,16 +26,16 @@ The project is split into core timer logic (`src/timer/`) and frontend implement
 Ensure you have `g++` and `make` installed. The project supports multiple frontends:
 
 ```sh
-# Build i3 frontend (default)
+# Build both frontends (default)
 make
 # or explicitly:
+make all
+
+# Build i3 frontend only
 make i3
 
-# Build CLI frontend (placeholder)
+# Build CLI frontend only
 make cli
-
-# Build both frontends
-make all
 
 # Clean build artifacts
 make clean
@@ -42,11 +43,11 @@ make clean
 
 Binaries are generated in the `build/` directory:
 - `build/timebox-i3` – i3blocks frontend
-- `build/timebox-cli` – CLI frontend (placeholder)
+ - `build/timebox-cli` – CLI frontend with interactive keyboard controls
 
 ## Usage
 
-The following instructions refer to the i3 frontend (`timebox-i3`). The CLI frontend is currently a placeholder.
+The following instructions refer to the i3 frontend (`timebox-i3`). For CLI frontend usage, see the [CLI Frontend](#cli-frontend) section below.
 
 ### Running the Timer
 
@@ -87,6 +88,10 @@ You can execute a custom script when the timer ends. For example, if you want to
 ```
 
 Ensure your script handles necessary actions, such as triggering notifications and playing sounds.
+
+### CLI Frontend
+
+Not implemented yet.
 
 ## Support
 

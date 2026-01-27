@@ -1,9 +1,10 @@
 # Agent Guidelines for Timebox
 
 ## Build Commands
-- `make` or `make i3` - Builds the i3 frontend with strict C++20 flags and sanitizers
-- `make cli` - Builds the CLI frontend (placeholder)
-- `make all` - Builds both frontends
+- `make` - Builds both frontends with strict C++20 flags and sanitizers
+- `make i3` - Builds only the i3 frontend
+- `make cli` - Builds only the CLI frontend
+- `make all` - Builds both frontends (same as `make`)
 - `make clean` - Removes all build artifacts from build/ directory
 - Binaries are built to `build/timebox-i3` and `build/timebox-cli`
 
